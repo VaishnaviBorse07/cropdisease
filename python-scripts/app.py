@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger("crop-disease-api")
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS to allow communication with the React frontend
+CORS(app,origins="https://cropdisease-frontend.onrender.com")  # Enable CORS to allow communication with the React frontend
 
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Create the uploads folder if it doesn't exist
