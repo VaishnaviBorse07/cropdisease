@@ -1,4 +1,3 @@
-// DetectDisease.js
 import React, { useState, useEffect } from "react";
 import "./DetectDisease.css";
 
@@ -37,16 +36,13 @@ function DetectDisease() {
   };
 
   const processUploadedFile = (file) => {
-    // Only process image files
     if (file.type.startsWith("image/")) {
       setImage(file);
-      // Create a preview URL
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewUrl(reader.result);
       };
       reader.readAsDataURL(file);
-      // Reset result when a new image is uploaded
       setResult(null);
       setError(null);
     } else {
@@ -66,21 +62,20 @@ function DetectDisease() {
     setLoading(true);
     setResult(null);
     setError(null);
-    
+
     try {
       const response = await fetch("https://cropdisease-app.onrender.com/predict", {
-    method: "POST",
-    body: formData,
-     });
-
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         const data = await response.json();
-        console.log("API Response:", data); // For debugging
+        console.log("API Response:", data);
         setResult(data);
       } else {
         const errorData = await response.json();
-        setError(errorData.error || 'Failed to process the image');
+        setError(errorData.error || "Failed to process the image");
         alert(`Error: ${errorData.error || 'Failed to process the image'}`);
       }
     } catch (error) {
@@ -92,32 +87,23 @@ function DetectDisease() {
     }
   };
 
-  // Helper function to render confidence value safely
   const renderConfidence = (confidence) => {
     if (confidence === undefined || confidence === null) return "N/A";
-    if (typeof confidence === 'number') return confidence.toFixed(2) + "%";
-    return String(confidence);
+    return typeof confidence === 'number' ? confidence.toFixed(2) + "%" : String(confidence);
   };
 
-  // Helper function to safely render severity details
   const renderSeverity = (severity) => {
     if (!severity || typeof severity !== 'object') return null;
-    
     return (
       <div className="severity-section">
         <h4>Disease Severity</h4>
         <p>
-          <strong>Severity Level:</strong> {severity.severity_score !== undefined 
+          <strong>Severity Level:</strong> {severity.severity_score !== undefined
             ? `${severity.severity_score}/5 ${severity.stage ? `(${severity.stage})` : ''}`
             : "N/A"}
         </p>
-        {severity.description && (
-          <p><strong>Description:</strong> {severity.description}</p>
-        )}
-        {severity.affected_area_percent !== undefined && (
-          <p><strong>Affected Area:</strong> {severity.affected_area_percent}%</p>
-        )}
-        
+        {severity.description && <p><strong>Description:</strong> {severity.description}</p>}
+        {severity.affected_area_percent !== undefined && <p><strong>Affected Area:</strong> {severity.affected_area_percent}%</p>}
         {severity.color_metrics && typeof severity.color_metrics === 'object' && (
           <div className="color-metrics">
             <h5>Color Analysis</h5>
@@ -133,70 +119,26 @@ function DetectDisease() {
   return (
     <div className="detect-disease">
       <h1>Plant Disease Detection</h1>
-      
-      <div 
-        className={`upload-section ${dragActive ? "drag-active" : ""}`}
-        onDragEnter={handleDrag}
-        onDragLeave={handleDrag}
-        onDragOver={handleDrag}
-        onDrop={handleDrop}
-      >
+      <div className={`upload-section ${dragActive ? "drag-active" : ""}`} onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}>
         <div className="upload-prompt">
           <p>Upload a plant leaf image for disease detection</p>
-          <input 
-            type="file" 
-            accept="image/*" 
-            onChange={handleImageUpload} 
-            id="file-upload"
-          />
+          <input type="file" accept="image/*" onChange={handleImageUpload} id="file-upload" />
           <label htmlFor="file-upload" className="custom-file-upload">
             {image ? "Change Image" : "Choose Image"}
           </label>
           {image && <p className="file-name">{image.name}</p>}
         </div>
-        
-        <button 
-          onClick={handlePrediction} 
-          disabled={loading || !image}
-          className={loading ? "loading-btn" : ""}
-        >
+        <button onClick={handlePrediction} disabled={loading || !image} className={loading ? "loading-btn" : ""}>
           {loading ? "Analyzing..." : "Detect Disease"}
         </button>
       </div>
-      
-      {previewUrl && (
-        <div className="image-preview">
-          <h3>Uploaded Image</h3>
-          <img src={previewUrl} alt="Plant upload preview" />
-        </div>
-      )}
-      
+      {previewUrl && <div className="image-preview"><h3>Uploaded Image</h3><img src={previewUrl} alt="Plant upload preview" /></div>}
       {loading && <div className="loading">Analyzing your plant image</div>}
-      
-      {error && (
-        <div className="error-message">
-          <p>{error}</p>
-        </div>
-      )}
-      
-      {result && (
-        <div className="result">
-          <h3>Detection Results</h3>
-          
-          {/* Display disease name if available */}
-          {result.disease && (
-            <p><strong>Disease:</strong> {result.disease}</p>
-          )}
-          
-          {/* Safely display confidence value */}
-          <p><strong>Confidence:</strong> {renderConfidence(result.confidence)}</p>
-          
-          {/* Render severity section if available */}
-          {renderSeverity(result.severity)}
-        </div>
-      )}
+      {error && <div className="error-message"><p>{error}</p></div>}
+      {result && <div className="result"><h3>Detection Results</h3>{result.disease && <p><strong>Disease:</strong> {result.disease}</p>}<p><strong>Confidence:</strong> {renderConfidence(result.confidence)}</p>{renderSeverity(result.severity)}</div>}
     </div>
   );
 }
 
 export default DetectDisease;
+
