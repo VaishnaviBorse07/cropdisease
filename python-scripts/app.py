@@ -87,5 +87,5 @@ def health_check():
     return jsonify({"status": "healthy"})
 
 if __name__ == "__main__":
-    logger.info("Starting server on port 5000")
-    app.run(port=5000, debug=True)
+    logger.info("Starting server on port 10000")
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 10000)))
