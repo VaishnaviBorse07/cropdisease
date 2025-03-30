@@ -68,7 +68,7 @@ function DetectDisease() {
     setError(null);
     
     try {
-      const response = await fetch("https://cropdisease-backend.onrender.com/predict", {
+      const response = await fetch("https://cropdisease-app.onrender.com/predict", {
     method: "POST",
     body: formData,
      });
