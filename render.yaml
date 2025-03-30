@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: cropdisease-python
-    env: python
-    region: oregon
-    buildCommand: "pip install -r python-scripts/requirements.txt"
-    startCommand: "python python-scripts/app.py"
