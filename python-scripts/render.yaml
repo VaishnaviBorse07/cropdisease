@@ -4,6 +4,6 @@ services:
     env: python
     branch: main
     buildCommand: "pip install -r python-scripts/requirements.txt"
-    startCommand: "bash python-scripts/python app.py"
+    startCommand: "python python-scripts/app.py"
     plan: free
 
