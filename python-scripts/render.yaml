@@ -1,28 +1,9 @@
 services:
-  - name: my-python-app
-    type: web
+  - type: web
+    name: cropdisease-app
     env: python
+    region: oregon
+    branch: main
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "bash start.sh"  # OR "python app.py"
     plan: free
-    
-    # Repository settings
-    buildCommand: |
-      pip install --upgrade pip
-      pip install -r requirements.txt
-
-    # Start the application
-    startCommand: python app.py
-
-    # Environment variables
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.10
-
-    # Handle dependency conflicts
-    build:
-      clearCache: true
-
-    # Health check to ensure deployment success
-    healthCheckPath: "/health"
-
-    # Auto-deploy on push
-    autoDeploy: true
