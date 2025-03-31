@@ -354,3 +354,96 @@
   font-size: 14px;
   line-height: 1.5;
 }
+
+/* Camera styles */
+.camera-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.camera-btn:hover {
+  background-color: #45a049;
+}
+
+.camera-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-preview {
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+}
+
+.camera-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.capture-btn, .cancel-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.capture-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.capture-btn:hover, .cancel-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .upload-prompt {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .camera-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
