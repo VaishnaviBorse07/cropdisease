@@ -12,6 +12,7 @@ import "./App.css";
 function AppContent() {
   const location = useLocation();
   const showNavbar = location.pathname !== "/getstarted";
+  const { translations } = useApp();
 
   return (
     <div className="app">
@@ -33,16 +34,16 @@ function AppContent() {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">Home</Link>
+                  <Link className="nav-link" to="/">{translations.home}</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/detect">Detect Disease</Link>
+                  <Link className="nav-link" to="/detect">{translations.detect}</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/about">About</Link>
+                  <Link className="nav-link" to="/about">{translations.about}</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/contact">Contact</Link>
+                  <Link className="nav-link" to="/contact">{translations.contact}</Link>
                 </li>
               </ul>
             </div>
