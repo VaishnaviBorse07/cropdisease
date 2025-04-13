@@ -1,4 +1,3 @@
-// DetectDisease.js
 import React, { useState, useEffect, useRef } from "react";
 import "./DetectDisease.css";
 
@@ -124,27 +123,40 @@ function DetectDisease() {
     setLoading(true);
     setResult(null);
     setError(null);
-    
+
+    // Timeout handling
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout after 10 seconds
+
     try {
-      const response = await fetch("http://localhost:5000/predict", {
+      const response = await fetch("https://cropdisease-app.onrender.com/predict", {
         method: "POST",
         body: formData,
+        headers: {
+          "Accept": "application/json",
+          // If you need an authorization token, you can add it here:
+          // "Authorization": "Bearer <your-token>"
+        },
+        signal: controller.signal, // Attach the controller for aborting
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("API Response:", data); // For debugging
-        setResult(data);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Failed to process the image');
-        alert(`Error: ${errorData.error || 'Failed to process the image'}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const data = await response.json();
+      console.log("API Response:", data); // For debugging
+      setResult(data);
     } catch (error) {
-      console.error("Error during prediction:", error);
-      setError("An error occurred while predicting the disease. Make sure the backend server is running.");
-      alert("An error occurred while predicting the disease. Make sure the backend server is running.");
+      if (error.name === "AbortError") {
+        alert("The request timed out.");
+      } else {
+        console.error("Error during prediction:", error);
+        setError("An error occurred while predicting the disease. Make sure the backend server is running.");
+        alert("An error occurred while predicting the disease. Make sure the backend server is running.");
+      }
     } finally {
+      clearTimeout(timeoutId);
       setLoading(false);
     }
   };
@@ -285,3 +297,4 @@ function DetectDisease() {
 }
 
 export default DetectDisease;
+
