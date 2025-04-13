@@ -51,32 +51,27 @@ function About() {
             <div className="team-member">
               <img src={require("./assets/member1.jpg")} alt="Pranjali Patil" />
               <h3>Pranjali Patil</h3>
-              <p>Developer</p>
+              <p>Frontend-Developer</p>
             </div>
             <div className="team-member">
               <img src={require("./assets/member2.jpg")} alt="Vaishnavi Borse" />
               <h3>Vaishnavi Borse</h3>
-              <p>Developer</p>
+              <p>Frontend&Backend-Developer</p>
             </div>
             <div className="team-member">
               <img src={require("./assets/member4.jpg")} alt="Yuvraj Rajure" />
               <h3>Yuvraj Rajure</h3>
-              <p>Developer</p>
+              <p>ML Developer</p>
             </div>
             <div className="team-member">
               <img src={require("./assets/member5.jpg")} alt="Hardik Sonawane" />
               <h3>Hardik Sonawane</h3>
-              <p>Developer</p>
+              <p>ML Developer</p>
             </div>
             <div className="team-member">
               <img src={require("./assets/member6.jpg")} alt="Maithili Pawar" />
               <h3>Maithili Pawar</h3>
-              <p>Developer</p>
-            </div>
-            <div className="team-member">
-              <img src={require("./assets/member3.jpg")} alt="Pratiksha Sonawane" />
-              <h3>Pratiksha Sonawane</h3>
-              <p>Developer</p>
+              <p>Frontend-Developer</p>
             </div>
           </div>
         </section>
